@@ -9,7 +9,7 @@ with open('Mapa de Accidentalidad Vial Municipio de Medellín 2016.geojson', "r
 
 st.title("Accidentalidad en el Municipio de Medellín, año 2016")
 
-st.write('Se entiende por accidente de tránsito:  evento, generalmente involuntario, generado al menos por un un vehículo en movimiento, que causa daños a '
+st.write('Se entiende por accidente de tránsito: evento, generalmente involuntario, generado al menos por un un vehículo en movimiento, que causa daños a '
          'personas y bienes involucrados en él, e igualmente afecta la normal circulación de los vehículos que se movilizan por la vía o vías comprendidas en el' 
          'lugar o dentro de la zona de influencia del hecho0 (Ley 769 de 2002 - Código Nacional de Tránsito)'
          )
@@ -58,8 +58,10 @@ option_hour_min = st.selectbox('Selecciona filtro por Hora',
 #option_hour_max = st.selectbox('Selecciona filtro por Hora',
 #                               ('08:00:00', '09:00:00', '10:00:00','11:00:00','12:00:00','13:00:00','14:00:00'),key='2')
 option_day = st.selectbox('Selecciona filtro por día',('LUNES', 'MARTES', 'MIÉRCOLES','JUEVES','VIERNES','SÁBADO','DOMINGO'))
+option_neighborhood = st.selectbox('Selecciona filtro por Barrio', sorted(df_g['Barrio'].unique()))
+
 #df_filtrado = df_g.query('día == "MIÉRCOLES" and Hora >= "08:00:00" and Hora <= "10:00:00"')
-df_filtrado = df_g.query('día == @option_day and Hora >=  @option_hour_min ')
+df_filtrado = df_g.query('día == @option_day and Hora >=  @option_hour_min and Barrio == @option_neighborhood')
 st.dataframe(df_filtrado)
 
 try:
@@ -70,3 +72,5 @@ except:
 
 st.map(df_filtrado)
 #st.write(df)
+
+
